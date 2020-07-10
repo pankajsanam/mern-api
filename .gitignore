@@ -1,0 +1,19 @@
+# Editors
+.idea
+.vscode
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Packages
+node_modules
+coverage
+
+# Configurations
+.env
+package-lock.json
+
+.Trashes
+*.DS_Store

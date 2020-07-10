@@ -1,0 +1,71 @@
+{
+  "plugins": ["jest"],
+
+  "extends": [
+    "airbnb-base",
+    "plugin:jest/all"
+  ],
+
+  "env": {
+    "node": true,
+    "jest": true,
+    "jest/globals": true,
+    "es2020": true,
+    "mongo": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "jest/prefer-expect-assertions": "off",
+
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "function-paren-newline": [
+      "error",
+      "multiline-arguments"
+    ],
+    "import/newline-after-import": 0,
+    "indent": [
+      "warn",
+      2
+    ],
+    "linebreak-style": 0,
+    "no-confusing-arrow": 0,
+    "no-console": "off",
+    "no-multi-str": 0,
+    "no-param-reassign": 0,
+    "no-throw-literal": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "variables": false
+      }
+    ],
+    "no-var": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}
