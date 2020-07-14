@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "c95497ea-215b-49c8-bb86-f93040140363",
+		"name": "mint-express",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Pankaj Sanam",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "pankaj.sanam@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pankaj@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "pankaj.sanam@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "sanam@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/auth/refresh-tokens",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refreshToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDgxNDUsImV4cCI6MTU5NzIwMDE0NX0.gfaUYYVr0RAILeXq_q7TUrAPi1hsaPzzzywW60R9D78",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/refresh-tokens",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"refresh-tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/auth/forgot-password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "pankaj.sanam@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/forgot-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"forgot-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/auth/reset-password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "sanam@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/reset-password?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MTE0NjEsImV4cCI6MTU5NDYxMjA2MX0.BJ8aS40PTWcgPSKrWfSfYed-FcrA0_gn8CX5ZtTGUyI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"reset-password"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MTE0NjEsImV4cCI6MTU5NDYxMjA2MX0.BJ8aS40PTWcgPSKrWfSfYed-FcrA0_gn8CX5ZtTGUyI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user (Create a user)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDc3ODAsImV4cCI6MTU5NzE5OTc4MH0.aFfVRsaJY4zNDIjUfrTB3bOMfcmwBRoiqRiu2nKjP4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "pankaj.object@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "object@123",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Objy",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user (Get all users)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDc3ODAsImV4cCI6MTU5NzE5OTc4MH0.aFfVRsaJY4zNDIjUfrTB3bOMfcmwBRoiqRiu2nKjP4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/:userId (Get user detail by id)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDc3ODAsImV4cCI6MTU5NzE5OTc4MH0.aFfVRsaJY4zNDIjUfrTB3bOMfcmwBRoiqRiu2nKjP4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user/5f0bc8a342aff13cdc1cd8be",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"5f0bc8a342aff13cdc1cd8be"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/:userId (Update user detail)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDc3ODAsImV4cCI6MTU5NzE5OTc4MH0.aFfVRsaJY4zNDIjUfrTB3bOMfcmwBRoiqRiu2nKjP4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "The Vanquisher",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/5f0bc8a342aff13cdc1cd8be",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"5f0bc8a342aff13cdc1cd8be"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/:userId (Delete user)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjBiYzhhMzQyYWZmMTNjZGMxY2Q4YmUiLCJpYXQiOjE1OTQ2MDc3ODAsImV4cCI6MTU5NzE5OTc4MH0.aFfVRsaJY4zNDIjUfrTB3bOMfcmwBRoiqRiu2nKjP4E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/user/5f0bdcab564b6545f458bd3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"5f0bdcab564b6545f458bd3f"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,86 @@
+{
+  "plugins": [
+    "jest",
+    "security"
+  ],
+
+  "extends": [
+    "airbnb-base",
+    "plugin:jest/all",
+    "plugin:security/recommended"
+  ],
+
+  "env": {
+    "node": true,
+    "jest": true,
+    "jest/globals": true,
+    "es2020": true,
+    "mongo": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "consistent-return": "off",
+    "func-names": "off",
+    "function-paren-newline": [
+      "error",
+      "multiline-arguments"
+    ],
+    "import/newline-after-import": "off",
+    "import/no-extraneous-dependencies": "off",
+    "indent": [
+      "warn",
+      2
+    ],
+    "jest/expect-expect": "off",
+    "jest/no-hooks": "off",
+    "jest/prefer-expect-assertions": "off",
+    "linebreak-style": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 130
+      }
+    ],
+    "no-confusing-arrow": 0,
+    "no-console": "error",
+    "no-multi-str": 0,
+    "no-param-reassign": 0,
+    "no-throw-literal": 0,
+    "no-underscore-dangle": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "variables": false
+      }
+    ],
+    "no-var": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "security/detect-object-injection": "off",
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}

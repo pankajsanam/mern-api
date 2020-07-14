@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  node-app:
+    container_name: mint-express-dev
+    command: npm dev -L

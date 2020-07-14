@@ -1,19 +1,12 @@
-# Editors
 .idea
 .vscode
-
-# Logs
 logs
 *.log
 npm-debug.log*
-
-# Packages
 node_modules
 coverage
-
-# Configurations
-.env
+dist
+.env*
+!.env*.example
 package-lock.json
-
-.Trashes
-*.DS_Store
+.DS_Store

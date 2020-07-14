@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - '12'
+services:
+  - mongodb
+cache: npm
+branches:
+  only:
+    - master
+env:
+  global:
+    - PORT=3000
+    - MONGODB_URL=mongodb://localhost:27017/mint
+    - JWT_SECRET=put_a_secret_here
+    - JWT_ACCESS_TOKEN_EXPIRY_MINUTES=30
+    - JWT_REFRESH_TOKEN_EXPIRY_DAYS=30
+script:
+  - npm lint
+  - npm test
+after_success: npm coverage:coveralls
