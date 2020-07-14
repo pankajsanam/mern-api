@@ -9,8 +9,8 @@ const httpStatus = require('http-status');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
-const { authLimiter } = require('./modules/user/middlewares/rateLimiter');
-const { errorConverter, errorHandler } = require('./modules/user/middlewares/error');
+const { authLimiter } = require('./user/middlewares/rateLimiter');
+const { errorConverter, errorHandler } = require('./user/middlewares/error');
 const ApiError = require('./utils/ApiError');
 
 const app = express();

@@ -1,7 +1,7 @@
 const passport = require('passport');
 const httpStatus = require('http-status');
-const ApiError = require('../../../utils/ApiError');
-const { rolePermissions } = require('../../../config/roles');
+const ApiError = require('../../utils/ApiError');
+const { rolePermissions } = require('../../config/roles');
 
 /**
  * Check if user has permission to access the requested resource

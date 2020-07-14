@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { toJSON, paginate } = require('../../../utils/plugins');
-const { roles } = require('../../../config/roles');
+const { toJSON, paginate } = require('../../utils/plugins');
+const { roles } = require('../../config/roles');
 
 const { String } = mongoose.SchemaTypes;
 

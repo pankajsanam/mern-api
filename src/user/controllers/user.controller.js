@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
-const ApiError = require('../../../utils/ApiError');
-const { controller, pick } = require('../../../utils/common');
+const ApiError = require('../../utils/ApiError');
+const { controller, pick } = require('../../utils/common');
 const { userService } = require('../services');
 
 /**

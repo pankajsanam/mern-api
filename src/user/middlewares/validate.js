@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const joi = require('@hapi/joi');
-const { pick } = require('../../../utils/common');
-const ApiError = require('../../../utils/ApiError');
+const { pick } = require('../../utils/common');
+const ApiError = require('../../utils/ApiError');
 
 /**
  * Validate the body of a request

@@ -1,8 +1,8 @@
 const request = require('supertest');
 const faker = require('faker');
 const httpStatus = require('http-status');
-const app = require('../../../../app');
-const setupTestDB = require('../../../../../tests/utils/setupTestDB');
+const app = require('../../../app');
+const setupTestDB = require('../../../../tests/utils/setupTestDB');
 const User = require('../../models/user.model');
 const {
   userOne, userTwo, admin, insertUsers

@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongodb
     volumes:
-      - .:/usr/src/node-app
+      - .:/usr/src/mint-express
     networks:
       - node-network
   mongodb:

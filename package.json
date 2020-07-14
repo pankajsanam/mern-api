@@ -21,7 +21,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
-    "start": "pm2 start ecosystem.config.json --no-daemon",
+    "start": "pm2 start ecosystem.config.js --no-daemon",
     "coverage": "jest -i --coverage",
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
