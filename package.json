@@ -1,6 +1,6 @@
 {
   "name": "mint-express",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Pankaj Sanam",
   "description": "A starter kit for creating modular RESTful APIs using Node, Express and Mongoose",
   "keywords": [

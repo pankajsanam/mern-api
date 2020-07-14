@@ -14,7 +14,8 @@ env:
     - JWT_SECRET=put_a_secret_here
     - JWT_ACCESS_TOKEN_EXPIRY_MINUTES=30
     - JWT_REFRESH_TOKEN_EXPIRY_DAYS=30
+    - RESET_PASSWORD_TOKEN_EXPIRY_MINUTES=10
 script:
-  - npm lint
+  - npm run lint
   - npm test
 after_success: npm coverage:coveralls
