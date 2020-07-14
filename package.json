@@ -5,14 +5,14 @@
   "description": "A starter kit for creating modular RESTful APIs using Node, Express and Mongoose",
   "keywords": [
     "mint",
+    "mint express",
+    "boilerplate",
     "mern",
     "node",
     "nodejs",
     "express",
     "mongodb",
     "rest",
-    "boilerplate",
-    "generator",
     "api"
   ],
   "main": "src/index.js",
@@ -31,8 +31,13 @@
     "lint:fix": "npm run lint --fix",
     "lint:watch": "npm run lint --watch",
     "test": "npm run lint && jest -i --coverage",
-    "test:watch": "jest --watchAll",
-    "prepush": "npm run lint && npm test"
+    "test:watch": "jest --watchAll"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint && npm test"
+    }
   },
   "jest": {
     "collectCoverageFrom": [
