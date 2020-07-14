@@ -1,8 +1,11 @@
 # MINT EXPRESS 0.3.0
 
+<p align="center">
+    <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
+</p>
+
 [![Build Status](https://travis-ci.com/pankajsanam/mint-express.svg?branch=master)](https://travis-ci.com/pankajsanam/mint-express)
 [![Coverage Status](https://coveralls.io/repos/github/pankajsanam/mint-express/badge.svg?branch=master)](https://coveralls.io/github/pankajsanam/mint-express?branch=master)
-[![Code Climate](https://img.shields.io/codeclimate/github/kunalkapadia/express-mongoose-es6-rest-api.svg?style=flat-square)](https://codeclimate.com/github/kunalkapadia/express-mongoose-es6-rest-api)
 [![MIT License](https://img.shields.io/npm/l/stack-overflow-copy-paste.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Support via Paypal](https://img.shields.io/badge/support-paypal-yellowgreen.svg?style=flat-square)](https://paypal.me/pankajsanam)
 
@@ -216,6 +219,11 @@ Contributions are more than welcome! Please check out the [contributing guide](C
 ## Author
 
 Pankaj Sanam - [@pankajsanam](https://twitter.com/pankajsanam)
+
+## Support Me
+
+<a href="https://www.buymeacoffee.com/pankajsanam" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 25px !important;width: 50px !important;"></a>
+
 
 ## License
 
