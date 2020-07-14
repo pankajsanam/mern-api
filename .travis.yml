@@ -18,4 +18,4 @@ env:
 script:
   - npm run lint
   - npm test
-after_success: npm coverage:coveralls
+after_success: npm run coverage:coveralls

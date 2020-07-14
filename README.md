@@ -1,6 +1,14 @@
 # MINT EXPRESS 0.3.0
 
+[![Build Status](https://travis-ci.com/pankajsanam/mint-express.svg?branch=master)](https://travis-ci.com/pankajsanam/mint-express)
+[![Coverage Status](https://coveralls.io/repos/github/pankajsanam/mint-express/badge.svg?branch=master)](https://coveralls.io/github/pankajsanam/mint-express?branch=master)
+[![Code Climate](https://img.shields.io/codeclimate/github/kunalkapadia/express-mongoose-es6-rest-api.svg?style=flat-square)](https://codeclimate.com/github/kunalkapadia/express-mongoose-es6-rest-api)
+[![MIT License](https://img.shields.io/npm/l/stack-overflow-copy-paste.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![Support via Paypal](https://img.shields.io/badge/support-paypal-yellowgreen.svg?style=flat-square)](https://paypal.me/pankajsanam)
+
 A starter kit for building modular RESTful APIs using Node, Express, and Mongoose.
+
+Quickly start your project with all the essential features required to build a REST API.
 
 ## Features
 
@@ -18,11 +26,11 @@ A starter kit for building modular RESTful APIs using Node, Express, and Mongoos
 - Request data validation using [Joi](https://github.com/hapijs/joi)
 - Continuous integration with [Travis CI](https://travis-ci.org)
 - Sanitize request data against xss and query injection
-- Centralized error handling
 - Consistent editor configuration using [EditorConfig](https://editorconfig.org)
 - Code coverage using [coveralls](https://coveralls.io)
+- Centralized error handling
 - Docker support
-- Pagination
+- Pagination plugin for mongoose
 - Roles and permissions
 
 ## Getting Started
@@ -204,6 +212,10 @@ To maintain a consistent coding style across different IDEs, the project contain
 ## Contributing
 
 Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md).
+
+## Author
+
+Pankaj Sanam - [@pankajsanam](https://twitter.com/pankajsanam)
 
 ## License
 
