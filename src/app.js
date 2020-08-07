@@ -5,13 +5,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
-const httpStatus = require('http-status');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
-const { jwtStrategy } = require('./config/passport');
+const { jwtStrategy } = require('./user/config/passport');
 const { authLimiter } = require('./user/middlewares/rateLimiter');
 const { errorConverter, errorHandler } = require('./user/middlewares/error');
-const ApiError = require('./utils/ApiError');
+const { NotFoundError } = require('./utils/errors');
 
 const app = express();
 
@@ -54,13 +53,13 @@ app.use('/api', require('./router'));
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  next(new NotFoundError());
 });
 
-// convert error to ApiError, if needed
+// convert error to custom BaseError
 app.use(errorConverter);
 
-// handle error
+// handle errors
 app.use(errorHandler);
 
 module.exports = app;

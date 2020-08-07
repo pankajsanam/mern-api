@@ -2,7 +2,7 @@ const request = require('supertest');
 const faker = require('faker');
 const httpStatus = require('http-status');
 const app = require('../../../app');
-const setupTestDB = require('../../../../tests/utils/setupTestDB');
+const setupTestDB = require('../../../utils/setupTestDB');
 const User = require('../../models/user.model');
 const {
   userOne, userTwo, admin, insertUsers
@@ -45,7 +45,7 @@ describe('user routes', () => {
       expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: newUser.role });
     });
 
-    it('should be able to create an admin as well', async () => {
+    it('should be able to create an admin', async () => {
       await insertUsers([admin]);
 
       newUser.role = 'admin';

@@ -1,4 +1,4 @@
-# Mint Express 0.3.0
+# Mint Express 0.4.0
 
 <p align="center">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
@@ -16,26 +16,26 @@ Quickly start your project with all the essential features required to build a R
 
 ## Features
 
-- Express + MongoDB ([Mongoose](http://mongoosejs.com/))
-- Authentication and authorization using [passport](http://www.passportjs.org)
-- Linting with [eslint](http://eslint.org) + Airbnb linting rules
-- Unit and integration tests using [Jest](https://jestjs.io)
-- Environment variables using [dotenv](https://github.com/motdotla/dotenv) and [cross-env](https://github.com/kentcdodds/cross-env#readme)
 - Advanced production process management and monitoring using [PM2](https://pm2.keymetrics.io)
-- Git hooks with [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged)
-- Cross-Origin Resource-Sharing (CORS) enabled using [cors](https://github.com/expressjs/cors)
-- Gzip compression with [compression](https://github.com/expressjs/compression)
-- Logging using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
-- Set security HTTP headers using [helmet](https://helmetjs.github.io)
-- Request data validation using [Joi](https://github.com/hapijs/joi)
-- Continuous integration with [Travis CI](https://travis-ci.org)
-- Sanitize request data against xss and query injection
-- Consistent editor configuration using [EditorConfig](https://editorconfig.org)
-- Code coverage using [coveralls](https://coveralls.io)
+- Authentication and authorization using [passport](http://www.passportjs.org)
 - Centralized error handling
+- Code coverage using [coveralls](https://coveralls.io)
+- Consistent editor configuration using [EditorConfig](https://editorconfig.org)
+- Continuous integration with [Travis CI](https://travis-ci.org)
+- Cross-Origin Resource-Sharing (CORS) enabled using [cors](https://github.com/expressjs/cors)
 - Docker support
+- Environment variables using [dotenv](https://github.com/motdotla/dotenv) and [cross-env](https://github.com/kentcdodds/cross-env#readme)
+- Express + MongoDB ([Mongoose](http://mongoosejs.com/))
+- Git hooks with [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged)
+- Gzip compression with [compression](https://github.com/expressjs/compression)
+- Linting with [eslint](http://eslint.org) + Airbnb linting rules
+- Logging using [winston](https://github.com/winstonjs/winston) and [morgan](https://github.com/expressjs/morgan)
 - Pagination plugin for mongoose
+- Request data validation using [Joi](https://github.com/hapijs/joi)
 - Roles and permissions
+- Sanitize request data against xss and query injection
+- Set security HTTP headers using [helmet](https://helmetjs.github.io)
+- Unit and integration tests using [Jest](https://jestjs.io)
 
 ## Getting Started
 
@@ -55,7 +55,7 @@ Install the dependencies:
 npm i
 ```
 
-Create a config file for setting environment variables and setup your tokens:
+Create a config file for setting environment variables and auth tokens:
 
 ```bash
 cp .env.example .env
@@ -63,19 +63,19 @@ cp .env.example .env
 
 ### Commands
 
-Running locally:
+Run this in your local development environment:
 
 ```bash
 npm run dev
 ```
 
-Running in production:
+Run this in production:
 
 ```bash
 npm run start
 ```
 
-Testing:
+#### Testing
 
 ```bash
 # run all tests
@@ -88,7 +88,7 @@ npm test:watch
 npm run coverage
 ```
 
-Docker:
+#### Docker
 
 ```bash
 # run docker container in development mode
@@ -101,7 +101,7 @@ npm run docker:prod
 npm run docker:test
 ```
 
-Linting:
+#### Linting
 
 ```bash
 # run ESLint
@@ -115,20 +115,24 @@ npm lint:fix
 
 ```
 src\
- |--config\           # Environment variables and configuration related things
- |--modules\          # All the module related files
-  |--user\            # User module
-   |--controllers\    # User module controllers
-   |--middlewares\    # User module middlewares
-   |--models\         # Mongoose models for User module
-   |--routes\         # Routes for user module
-   |--services\       # Business logic for user module
-   |--tests\          # User module specific tests
-   |--validations\    # Request data validation schemas for user module
- |--utils\            # Utility classes and functions
- |--app.js            # Express app
- |--index.js          # App entry point
- |--router.js         # Entry point for all module routes
+  |--config\             # Global environment variables and configurations
+    |--user\             # User module
+      |--config\         # User module configuration
+      |--controllers\    # User module controllers
+      |--middlewares\    # User module middlewares
+      |--models\         # Mongoose models for User module
+      |--routes\         # Routes for user module
+      |--services\       # Business logic for user module
+      |--tests\          # User module specific tests
+      |--validations\    # Request data validation schemas for user module
+   |--utils\             # Common utility classes and functions
+     |--db\              # Common database specific utils
+       |--plugins\       # Mongoose plugins
+     |--errors\          # Common error classes
+     |--test\            # Tests for utils
+   |--app.js             # Express app
+   |--index.js           # App entry point
+   |--router.js          # Entry point for all module routes
 ```
 
 ### API Endpoints
@@ -144,10 +148,10 @@ src\
 
 **User routes**:\
 `POST /api/user` - create a user\
-`GET /api/user` - get all paginated users\
-`GET /api/user/:userId` - get user\
-`PATCH /api/user/:userId` - update user\
-`DELETE /api/user/:userId` - delete user
+`GET /api/user` - get all users (paginated) \
+`GET /api/user/:userId` - get a specific user\
+`PATCH /api/user/:userId` - update a user\
+`DELETE /api/user/:userId` - delete a user
 
 ## Logging
 

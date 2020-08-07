@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('../../../../src/utils/plugins');
+const { toJSON } = require('../db/plugins');
 
 describe('toJSON plugin', () => {
   let connection;

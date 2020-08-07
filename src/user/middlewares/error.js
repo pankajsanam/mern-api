@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
 const config = require('../../config/config');
 const logger = require('../../config/logger');
-const ApiError = require('../../utils/ApiError');
+const BaseError = require('../../utils/errors/BaseError');
 
 /**
- * Convert errors into the custom ApiError
+ * Convert errors into the BaseError
  *
  * @param err
  * @param req
@@ -14,11 +14,11 @@ const ApiError = require('../../utils/ApiError');
 const errorConverter = (err, req, res, next) => {
   let error = err;
 
-  if (!(error instanceof ApiError)) {
+  if (!(error instanceof BaseError)) {
     const statusCode = error.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
     const message = error.message || httpStatus[statusCode];
 
-    error = new ApiError(statusCode, message, false, err.stack);
+    error = new BaseError(statusCode, message, false, err.stack);
   }
 
   next(error);

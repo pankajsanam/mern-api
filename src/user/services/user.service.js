@@ -1,5 +1,4 @@
-const httpStatus = require('http-status');
-const ApiError = require('../../utils/ApiError');
+const { BadRequestError, NotFoundError } = require('../../utils/errors');
 const User = require('../models/user.model');
 
 /**
@@ -10,7 +9,7 @@ const User = require('../models/user.model');
  */
 const createUser = async userBody => {
   if (await User.isEmailTaken(userBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new BadRequestError('Email already taken');
   }
 
   return User.create(userBody);
@@ -55,11 +54,11 @@ const updateUserById = async (userId, updateBody) => {
   const user = await getUserById(userId);
 
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+    throw new NotFoundError('User does not exist');
   }
 
   if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new BadRequestError('Email already taken');
   }
 
   Object.assign(user, updateBody);
@@ -79,7 +78,7 @@ const deleteUserById = async userId => {
   const user = await getUserById(userId);
 
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new NotFoundError('User not found');
   }
 
   await user.remove();

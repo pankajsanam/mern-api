@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { controller } = require('../../utils/common');
+const { controller } = require('../../utils');
 const {
   authService, userService, tokenService, emailService
 } = require('../services');

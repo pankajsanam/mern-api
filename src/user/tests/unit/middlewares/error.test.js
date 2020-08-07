@@ -1,14 +1,14 @@
 const httpStatus = require('http-status');
 const httpMocks = require('node-mocks-http');
 const { errorConverter, errorHandler } = require('../../../middlewares/error');
-const ApiError = require('../../../../utils/ApiError');
+const { BaseError } = require('../../../../utils/errors');
 const config = require('../../../../config/config');
 const logger = require('../../../../config/logger');
 
 describe('error middleware', () => {
   describe('error converter', () => {
-    it('should return the same ApiError object it was called with', () => {
-      const error = new ApiError(httpStatus.BAD_REQUEST, 'Any error');
+    it('should return the same BaseError object it was called with', () => {
+      const error = new BaseError(httpStatus.BAD_REQUEST, 'Any error');
       const next = jest.fn();
 
       errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse, next);
@@ -16,14 +16,14 @@ describe('error middleware', () => {
       expect(next).toHaveBeenCalledWith(error);
     });
 
-    it('should convert an Error to ApiError and preserve its status and message', () => {
+    it('should convert an Error to BaseError and preserve its status and message', () => {
       const error = new Error('Any error');
       error.statusCode = httpStatus.BAD_REQUEST;
       const next = jest.fn();
 
       errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse, next);
 
-      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(expect.any(BaseError));
       expect(next).toHaveBeenCalledWith(
         expect.objectContaining({
           statusCode: error.statusCode,
@@ -33,13 +33,13 @@ describe('error middleware', () => {
       );
     });
 
-    it('should convert an Error without status to ApiError with status 500', () => {
+    it('should convert an Error without status to BaseError with status 500', () => {
       const error = new Error('Any error');
       const next = jest.fn();
 
       errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse, next);
 
-      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(expect.any(BaseError));
       expect(next).toHaveBeenCalledWith(
         expect.objectContaining({
           statusCode: httpStatus.INTERNAL_SERVER_ERROR,
@@ -49,14 +49,14 @@ describe('error middleware', () => {
       );
     });
 
-    it('should convert an Error without message to ApiError with default message of that http status', () => {
+    it('should convert an Error without message to BaseError with default message of that http status', () => {
       const error = new Error();
       error.statusCode = httpStatus.BAD_REQUEST;
       const next = jest.fn();
 
       errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse, next);
 
-      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(expect.any(BaseError));
       expect(next).toHaveBeenCalledWith(
         expect.objectContaining({
           statusCode: error.statusCode,
@@ -66,13 +66,13 @@ describe('error middleware', () => {
       );
     });
 
-    it('should convert any other object to ApiError with status 500 and its message', () => {
+    it('should convert any other object to BaseError with status 500 and its message', () => {
       const error = {};
       const next = jest.fn();
 
       errorConverter(error, httpMocks.createRequest(), httpMocks.createResponse, next);
 
-      expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+      expect(next).toHaveBeenCalledWith(expect.any(BaseError));
       expect(next).toHaveBeenCalledWith(
         expect.objectContaining({
           statusCode: httpStatus.INTERNAL_SERVER_ERROR,
@@ -90,7 +90,7 @@ describe('error middleware', () => {
     });
 
     it('should send proper error response and put the error message in res.locals', () => {
-      const error = new ApiError(httpStatus.BAD_REQUEST, 'Any error');
+      const error = new BaseError(httpStatus.BAD_REQUEST, 'Any error');
       const res = httpMocks.createResponse();
       const sendSpy = jest.spyOn(res, 'send');
 
@@ -102,7 +102,7 @@ describe('error middleware', () => {
 
     it('should put the error stack in the response if in development mode', () => {
       config.env = 'development';
-      const error = new ApiError(httpStatus.BAD_REQUEST, 'Any error');
+      const error = new BaseError(httpStatus.BAD_REQUEST, 'Any error');
       const res = httpMocks.createResponse();
       const sendSpy = jest.spyOn(res, 'send');
 
@@ -116,7 +116,7 @@ describe('error middleware', () => {
 
     it('should send internal server error status if in production mode and error is not operational', () => {
       config.env = 'production';
-      const error = new ApiError(httpStatus.BAD_REQUEST, 'Any error', false);
+      const error = new BaseError(httpStatus.BAD_REQUEST, 'Any error', false);
       const res = httpMocks.createResponse();
       const sendSpy = jest.spyOn(res, 'send');
 
@@ -134,7 +134,7 @@ describe('error middleware', () => {
 
     it('should preserve original error status and message if in production mode and error is operational', () => {
       config.env = 'production';
-      const error = new ApiError(httpStatus.BAD_REQUEST, 'Any error');
+      const error = new BaseError(httpStatus.BAD_REQUEST, 'Any error');
       const res = httpMocks.createResponse();
       const sendSpy = jest.spyOn(res, 'send');
 

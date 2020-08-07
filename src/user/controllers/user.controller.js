@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
-const ApiError = require('../../utils/ApiError');
-const { controller, pick } = require('../../utils/common');
+const { NotFoundError } = require('../../utils/errors');
+const { controller, pick } = require('../../utils');
 const { userService } = require('../services');
 
 /**
@@ -37,7 +37,7 @@ const getUser = controller(async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
 
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+    throw new NotFoundError('User does not exist');
   }
 
   res.send(user);

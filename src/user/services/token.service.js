@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
-const httpStatus = require('http-status');
 const config = require('../../config/config');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const ApiError = require('../../utils/ApiError');
+const { NotFoundError } = require('../../utils/errors');
 
 /**
  * Generate token
@@ -100,7 +99,7 @@ const generateResetPasswordToken = async email => {
   const user = await userService.getUserByEmail(email);
 
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'No user found with this email');
+    throw new NotFoundError('No user found with this email');
   }
 
   const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes');

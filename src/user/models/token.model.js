@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('../../utils/plugins');
+const { toJSON } = require('../../utils/db/plugins');
 
 const {
   String, Date, Boolean, ObjectId

@@ -1,7 +1,6 @@
 const passport = require('passport');
-const httpStatus = require('http-status');
-const ApiError = require('../../utils/ApiError');
-const { rolePermissions } = require('../../config/roles');
+const { AuthError, ForbiddenError } = require('../../utils/errors');
+const { rolePermissions } = require('../config/roles');
 
 /**
  * Check if user has permission to access the requested resource
@@ -14,7 +13,7 @@ const { rolePermissions } = require('../../config/roles');
  */
 const authorization = (req, resolve, reject, requiredPermissions) => async (err, user, info) => {
   if (err || info || !user) {
-    return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Authentication required!'));
+    return reject(new AuthError());
   }
 
   req.user = user;
@@ -24,7 +23,7 @@ const authorization = (req, resolve, reject, requiredPermissions) => async (err,
     const hasPermission = requiredPermissions.every(requiredRight => userPermissions.includes(requiredRight));
 
     if (!hasPermission && req.params.userId !== user.id) {
-      return reject(new ApiError(httpStatus.FORBIDDEN, 'Forbidden!'));
+      return reject(new ForbiddenError());
     }
   }
 

@@ -1,4 +1,8 @@
-class ApiError extends Error {
+/**
+ * Base Error which extends the Error class
+ * This empowers all the custom error messages
+ */
+class BaseError extends Error {
   constructor(statusCode, message, isOperational = true, stack = '') {
     super(message);
 
@@ -13,4 +17,4 @@ class ApiError extends Error {
   }
 }
 
-module.exports = ApiError;
+module.exports = BaseError;

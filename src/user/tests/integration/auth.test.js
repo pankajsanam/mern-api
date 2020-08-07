@@ -8,11 +8,11 @@ const app = require('../../../app');
 const config = require('../../../config/config');
 const auth = require('../../middlewares/auth');
 const { tokenService, emailService } = require('../../services');
-const ApiError = require('../../../utils/ApiError');
-const setupTestDB = require('../../../../tests/utils/setupTestDB');
+const { BaseError } = require('../../../utils/errors');
+const setupTestDB = require('../../../utils/setupTestDB');
 const User = require('../../models/user.model');
 const Token = require('../../models/token.model');
-const { rolePermissions } = require('../../../config/roles');
+const { rolePermissions } = require('../../config/roles');
 const { userOne, admin, insertUsers } = require('../fixtures/user.fixture');
 const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
 
@@ -388,7 +388,7 @@ describe('auth middleware', () => {
 
     await auth()(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Authentication required!' })
     );
@@ -402,7 +402,7 @@ describe('auth middleware', () => {
 
     await auth()(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Authentication required!' })
     );
@@ -418,7 +418,7 @@ describe('auth middleware', () => {
 
     await auth()(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Authentication required!' })
     );
@@ -434,7 +434,7 @@ describe('auth middleware', () => {
 
     await auth()(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Authentication required!' })
     );
@@ -446,7 +446,7 @@ describe('auth middleware', () => {
 
     await auth()(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: httpStatus.UNAUTHORIZED, message: 'Authentication required!' })
     );
@@ -460,10 +460,10 @@ describe('auth middleware', () => {
 
     await auth('anyPermission')(req, httpMocks.createResponse(), next);
 
-    expect(next).toHaveBeenCalledWith(expect.any(ApiError));
+    expect(next).toHaveBeenCalledWith(expect.any(BaseError));
     expect(next).toHaveBeenCalledWith(expect.objectContaining({
       statusCode: httpStatus.FORBIDDEN,
-      message: 'Forbidden!'
+      message: 'Not allowed'
     }));
   });
 

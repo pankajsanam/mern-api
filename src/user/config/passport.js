@@ -1,6 +1,6 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const config = require('./config');
-const User = require('../user/models/user.model');
+const config = require('../../config/config');
+const User = require('../models/user.model');
 
 const jwtOptions = {
   secretOrKey: config.jwt.secret,
@@ -8,16 +8,12 @@ const jwtOptions = {
 };
 
 const jwtVerify = async (payload, done) => {
-  try {
-    const user = await User.findById(payload.sub);
-    if (!user) {
-      return done(null, false);
-    }
-
-    done(null, user);
-  } catch (error) {
-    done(error, false);
+  const user = await User.findById(payload.sub);
+  if (!user) {
+    return done(null, false);
   }
+
+  done(null, user);
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);

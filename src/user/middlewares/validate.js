@@ -1,7 +1,6 @@
-const httpStatus = require('http-status');
 const joi = require('@hapi/joi');
-const { pick } = require('../../utils/common');
-const ApiError = require('../../utils/ApiError');
+const { pick } = require('../../utils');
+const { BadRequestError } = require('../../utils/errors');
 
 /**
  * Validate the body of a request
@@ -18,7 +17,7 @@ const validate = schema => (req, res, next) => {
 
   if (error) {
     const errorMessage = error.details.map(details => details.message).join(', ');
-    return next(new ApiError(httpStatus.BAD_REQUEST, errorMessage));
+    return next(new BadRequestError(errorMessage));
   }
 
   Object.assign(req, value);

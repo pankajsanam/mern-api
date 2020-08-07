@@ -1,8 +1,7 @@
-const httpStatus = require('http-status');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const ApiError = require('../../utils/ApiError');
+const { AuthError } = require('../../utils/errors');
 
 /**
  * Login with email and password
@@ -15,7 +14,7 @@ const authenticate = async (email, password) => {
   const user = await userService.getUserByEmail(email);
 
   if (!user || !(await user.isPasswordMatch(password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+    throw new AuthError('Incorrect email or password');
   }
 
   return user;
@@ -40,7 +39,7 @@ const refreshAuth = async refreshToken => {
 
     return tokenService.generateAuthTokens(user);
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Authentication required');
+    throw new AuthError();
   }
 };
 
@@ -63,7 +62,7 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     await Token.deleteMany({ user: user.id, type: 'resetPassword' });
     await userService.updateUserById(user.id, { password: newPassword });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
+    throw new AuthError('Could not reset password');
   }
 };
 
