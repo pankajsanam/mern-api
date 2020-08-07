@@ -16,11 +16,11 @@ const configSet = joi.object()
     JWT_ACCESS_TOKEN_EXPIRY_MINUTES: joi.number().default(30),
     JWT_REFRESH_TOKEN_EXPIRY_DAYS: joi.number().default(30),
     RESET_PASSWORD_TOKEN_EXPIRY_MINUTES: joi.number().default(10),
-    SMTP_HOST: joi.string(),
+    SMTP_HOST: joi.string().allow(null, ''),
     SMTP_PORT: joi.number(),
-    SMTP_USERNAME: joi.string(),
-    SMTP_PASSWORD: joi.string(),
-    EMAIL_FROM: joi.string()
+    SMTP_USERNAME: joi.string().allow(null, ''),
+    SMTP_PASSWORD: joi.string().allow(null, ''),
+    EMAIL_FROM: joi.string().allow(null, '')
   })
   .unknown();
 
