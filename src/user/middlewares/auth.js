@@ -2,6 +2,8 @@ const passport = require('passport');
 const { AuthError, ForbiddenError } = require('../../utils/errors');
 const { rolePermissions } = require('../config/roles');
 
+// Authorization for controllers
+
 /**
  * Check if user has permission to access the requested resource
  *

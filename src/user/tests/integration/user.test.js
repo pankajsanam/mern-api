@@ -327,6 +327,29 @@ describe('user routes', () => {
     });
   });
 
+  describe('[GET] /api/user/logged-in', () => {
+    it('should return logged-in status true', async () => {
+      await insertUsers([userOne, userTwo, admin]);
+
+      const res = await request(app)
+        .get('/api/user/logged-in')
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toStrictEqual({ status: true });
+    });
+
+    it('should return 401 if access token is missing', async () => {
+      await insertUsers([userOne, userTwo, admin]);
+
+      await request(app)
+        .get('/api/user/logged-in')
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
+  });
+
   describe('[GET] - /api/user/:userId', () => {
     it('should return 200 and the user object if data is ok', async () => {
       await insertUsers([userOne]);

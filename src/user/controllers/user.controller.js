@@ -4,6 +4,15 @@ const { controller, pick } = require('../../utils');
 const { userService } = require('../services');
 
 /**
+ * Login status is valid if request reaches to this point through passport middleware
+ *
+ * @type {function(...[*]=)}
+ */
+const loginStatus = controller(async (req, res) => {
+  res.send({ status: true });
+});
+
+/**
  * Create a new user
  *
  * @type {function(...[*]=)}
@@ -66,6 +75,7 @@ const deleteUser = controller(async (req, res) => {
 });
 
 module.exports = {
+  loginStatus,
   updateUser,
   createUser,
   deleteUser,

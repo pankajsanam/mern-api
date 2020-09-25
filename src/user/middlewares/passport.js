@@ -9,6 +9,7 @@ const jwtOptions = {
 
 const jwtVerify = async (payload, done) => {
   const user = await User.findById(payload.sub);
+
   if (!user) {
     return done(null, false);
   }
