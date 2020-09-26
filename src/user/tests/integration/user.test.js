@@ -7,7 +7,10 @@ const User = require('../../models/user.model');
 const {
   userOne, userTwo, admin, insertUsers
 } = require('../fixtures/user.fixture');
-const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+const {
+  userOneAccessToken, userOneRefreshToken,
+  adminAccessToken, saveTokens
+} = require('../fixtures/token.fixture');
 
 setupTestDB();
 
@@ -343,10 +346,75 @@ describe('user routes', () => {
     it('should return 401 if access token is missing', async () => {
       await insertUsers([userOne, userTwo, admin]);
 
-      await request(app)
+      const res = await request(app)
         .get('/api/user/logged-in')
         .send()
         .expect(httpStatus.UNAUTHORIZED);
+
+      expect(res.body).toStrictEqual({
+        code: 401,
+        message: 'Authentication required!'
+      });
+    });
+  });
+
+  describe('[DELETE] /api/user/logout/:refreshToken', () => {
+    it('should delete the refresh token for user', async () => {
+      await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
+
+      const res = await request(app)
+        .delete(`/api/user/logout/${userOneRefreshToken}`)
+        .set('Authorization', `Bearer ${userOneAccessToken}`)
+        .send()
+        .expect(httpStatus.NO_CONTENT);
+
+      expect(res.body).toStrictEqual({});
+    });
+
+    it('should return 401 if access token is missing', async () => {
+      await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
+
+      const res = await request(app)
+        .delete(`/api/user/logout/${userOneRefreshToken}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+
+      expect(res.body).toStrictEqual({
+        code: 401,
+        message: 'Authentication required!'
+      });
+    });
+
+    it('should return 401 if user does not exist but the token does', async () => {
+      await saveTokens(userOneRefreshToken);
+
+      const res = await request(app)
+        .delete(`/api/user/logout/${userOneRefreshToken}`)
+        .set('Authorization', `Bearer ${userOneAccessToken}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+
+      expect(res.body).toStrictEqual({
+        code: 401,
+        message: 'Authentication required!'
+      });
+    });
+
+    it('should return 500 if token does not exist but user does', async () => {
+      await insertUsers([userOne]);
+
+      const res = await request(app)
+        .delete(`/api/user/logout/${userOneRefreshToken}`)
+        .set('Authorization', `Bearer ${userOneAccessToken}`)
+        .send()
+        .expect(httpStatus.INTERNAL_SERVER_ERROR);
+
+      expect(res.body).toStrictEqual({
+        code: 500,
+        message: 'Token not found'
+      });
     });
   });
 

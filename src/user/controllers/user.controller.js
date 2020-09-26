@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const { NotFoundError } = require('../../utils/errors');
 const { controller, pick } = require('../../utils');
-const { userService } = require('../services');
+const { userService, tokenService } = require('../services');
 
 /**
  * Login status is valid if request reaches to this point through passport middleware
@@ -10,6 +10,17 @@ const { userService } = require('../services');
  */
 const loginStatus = controller(async (req, res) => {
   res.send({ status: true });
+});
+
+/**
+ * Logout user by deleting the associated token
+ *
+ * @type {function(...[*]=)}
+ */
+const logoutUser = controller(async (req, res) => {
+  await tokenService.deleteRefreshToken(req.params.refreshToken);
+
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 /**
@@ -79,6 +90,7 @@ module.exports = {
   updateUser,
   createUser,
   deleteUser,
+  logoutUser,
   getUsers,
   getUser
 };

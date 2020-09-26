@@ -110,9 +110,24 @@ const generateResetPasswordToken = async email => {
   return resetPasswordToken;
 };
 
+/**
+ * Delete refresh token
+ *
+ * @param refreshToken
+ * @returns {Promise<Token>}
+ */
+const deleteRefreshToken = async refreshToken => {
+  const token = await verifyToken(refreshToken, 'refresh');
+
+  await token.remove();
+
+  return token;
+};
+
 module.exports = {
   generateResetPasswordToken,
   generateAuthTokens,
+  deleteRefreshToken,
   generateToken,
   verifyToken,
   saveToken

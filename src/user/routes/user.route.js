@@ -11,6 +11,10 @@ router
   .get(auth('login'), userController.loginStatus);
 
 router
+  .route('/logout/:refreshToken')
+  .delete(auth('login'), userController.logoutUser);
+
+router
   .route('/')
   .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);

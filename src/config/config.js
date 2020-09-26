@@ -13,7 +13,7 @@ const configSet = joi.object()
     PORT: joi.number().default(3000),
     MONGODB_URL: joi.string().required(),
     JWT_SECRET: joi.string().required(),
-    JWT_ACCESS_TOKEN_EXPIRY_MINUTES: joi.number().default(30),
+    JWT_ACCESS_TOKEN_EXPIRY_MINUTES: joi.number().default(3),
     JWT_REFRESH_TOKEN_EXPIRY_DAYS: joi.number().default(30),
     RESET_PASSWORD_TOKEN_EXPIRY_MINUTES: joi.number().default(10),
     SMTP_HOST: joi.string().allow(null, ''),
