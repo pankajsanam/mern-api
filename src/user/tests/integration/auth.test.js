@@ -14,7 +14,11 @@ const User = require('../../models/user.model');
 const Token = require('../../models/token.model');
 const { rolePermissions } = require('../../config/roles');
 const { userOne, admin, insertUsers } = require('../fixtures/user.fixture');
-const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+const {
+  userOneAccessToken, userOneRefreshToken,
+  adminAccessToken, adminRefreshToken,
+  saveTokens, saveAdminToken
+} = require('../fixtures/token.fixture');
 
 setupTestDB();
 
@@ -62,7 +66,10 @@ describe('auth routes', () => {
     it('should return 400 error if email is invalid', async () => {
       newUser.email = 'invalidEmail';
 
-      await request(app).post('/api/auth/register').send(newUser).expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/register')
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
     });
 
     it('should return 400 error if email is already used', async () => {
@@ -70,7 +77,10 @@ describe('auth routes', () => {
 
       newUser.email = userOne.email;
 
-      await request(app).post('/api/auth/register').send(newUser).expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/register')
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
     });
 
     it('should return 400 error if password length is less than 8 characters', async () => {
@@ -85,11 +95,17 @@ describe('auth routes', () => {
     it('should return 400 error if password does not contain both letters and numbers', async () => {
       newUser.password = 'password';
 
-      await request(app).post('/api/auth/register').send(newUser).expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/register')
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
 
       newUser.password = '11111111';
 
-      await request(app).post('/api/auth/register').send(newUser).expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/register')
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
     });
   });
 
@@ -102,7 +118,10 @@ describe('auth routes', () => {
         password: userOne.password
       };
 
-      const res = await request(app).post('/api/auth/login').send(loginCredentials).expect(httpStatus.OK);
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send(loginCredentials)
+        .expect(httpStatus.OK);
 
       expect(res.body.user).toStrictEqual({
         id: expect.anything(),
@@ -117,7 +136,7 @@ describe('auth routes', () => {
       });
     });
 
-    it('should return 401 error if there are no user with that email', async () => {
+    it('should return 401 error if there are no user with specified email', async () => {
       const loginCredentials = {
         email: userOne.email,
         password: userOne.password
@@ -139,7 +158,10 @@ describe('auth routes', () => {
         password: 'wrongPassword1'
       };
 
-      const res = await request(app).post('/api/auth/login').send(loginCredentials).expect(httpStatus.UNAUTHORIZED);
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send(loginCredentials)
+        .expect(httpStatus.UNAUTHORIZED);
 
       expect(res.body).toStrictEqual({ code: httpStatus.UNAUTHORIZED, message: 'Incorrect email or password' });
     });
@@ -169,7 +191,10 @@ describe('auth routes', () => {
     });
 
     it('should return 400 error if refresh token is missing from request body', async () => {
-      await request(app).post('/api/auth/refresh-tokens').send().expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send()
+        .expect(httpStatus.BAD_REQUEST);
     });
 
     it('should return 401 error if refresh token is signed using an invalid secret', async () => {
@@ -180,7 +205,10 @@ describe('auth routes', () => {
 
       await tokenService.saveToken(refreshToken, userOne._id, expires, 'refresh');
 
-      await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send({ refreshToken })
+        .expect(httpStatus.UNAUTHORIZED);
     });
 
     it('should return 401 error if refresh token is not found in the database', async () => {
@@ -189,7 +217,10 @@ describe('auth routes', () => {
       const expires = moment().add(config.jwt.refreshExpirationDays, 'days');
       const refreshToken = tokenService.generateToken(userOne._id, expires);
 
-      await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send({ refreshToken })
+        .expect(httpStatus.UNAUTHORIZED);
     });
 
     it('should return 401 error if refresh token is blacklisted', async () => {
@@ -200,7 +231,10 @@ describe('auth routes', () => {
 
       await tokenService.saveToken(refreshToken, userOne._id, expires, 'refresh', true);
 
-      await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send({ refreshToken })
+        .expect(httpStatus.UNAUTHORIZED);
     });
 
     it('should return 401 error if refresh token is expired', async () => {
@@ -211,7 +245,10 @@ describe('auth routes', () => {
 
       await tokenService.saveToken(refreshToken, userOne._id, expires, 'refresh');
 
-      await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send({ refreshToken })
+        .expect(httpStatus.UNAUTHORIZED);
     });
 
     it('should return 401 error if user is not found', async () => {
@@ -220,7 +257,10 @@ describe('auth routes', () => {
 
       await tokenService.saveToken(refreshToken, userOne._id, expires, 'refresh');
 
-      await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.UNAUTHORIZED);
+      await request(app)
+        .post('/api/auth/refresh-tokens')
+        .send({ refreshToken })
+        .expect(httpStatus.UNAUTHORIZED);
     });
   });
 
@@ -234,7 +274,10 @@ describe('auth routes', () => {
 
       const sendResetPasswordEmailSpy = jest.spyOn(emailService, 'sendResetPasswordEmail');
 
-      await request(app).post('/api/auth/forgot-password').send({ email: userOne.email }).expect(httpStatus.NO_CONTENT);
+      await request(app)
+        .post('/api/auth/forgot-password')
+        .send({ email: userOne.email })
+        .expect(httpStatus.NO_CONTENT);
 
       expect(sendResetPasswordEmailSpy).toHaveBeenCalledWith(userOne.email, expect.any(String));
 
@@ -247,7 +290,10 @@ describe('auth routes', () => {
     it('should return 400 if email is missing', async () => {
       await insertUsers([userOne]);
 
-      await request(app).post('/api/auth/forgot-password').send().expect(httpStatus.BAD_REQUEST);
+      await request(app)
+        .post('/api/auth/forgot-password')
+        .send()
+        .expect(httpStatus.BAD_REQUEST);
     });
 
     it('should return 404 if email does not belong to any user', async () => {
@@ -370,6 +416,7 @@ describe('auth routes', () => {
 describe('auth middleware', () => {
   it('should call next with no errors if access token is valid', async () => {
     await insertUsers([userOne]);
+    await saveTokens(userOneRefreshToken);
 
     const req = httpMocks.createRequest({ headers: { Authorization: `Bearer ${userOneAccessToken}` } });
     const next = jest.fn();
@@ -454,6 +501,7 @@ describe('auth middleware', () => {
 
   it('should call next with forbidden error if user does not have required permissions and userId in params', async () => {
     await insertUsers([userOne]);
+    await saveTokens(userOneRefreshToken);
 
     const req = httpMocks.createRequest({ headers: { Authorization: `Bearer ${userOneAccessToken}` } });
     const next = jest.fn();
@@ -469,6 +517,7 @@ describe('auth middleware', () => {
 
   it('should call next with no errors if user does not have required permissions but userId is in params', async () => {
     await insertUsers([userOne]);
+    await saveTokens(userOneRefreshToken);
 
     const req = httpMocks.createRequest({
       headers: { Authorization: `Bearer ${userOneAccessToken}` },
@@ -483,6 +532,7 @@ describe('auth middleware', () => {
 
   it('should call next with no errors if user has required permissions', async () => {
     await insertUsers([admin]);
+    await saveAdminToken(adminRefreshToken);
 
     const req = httpMocks.createRequest({
       headers: { Authorization: `Bearer ${adminAccessToken}` },

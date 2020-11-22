@@ -16,11 +16,16 @@ const saveTokens = async refreshToken => {
   await tokenService.saveToken(refreshToken, userOne._id, refreshTokenExpires, 'refresh');
 };
 
+const saveAdminToken = async refreshToken => {
+  await tokenService.saveToken(refreshToken, admin._id, refreshTokenExpires, 'refresh');
+};
+
 module.exports = {
   userOneRefreshToken,
   accessTokenExpires,
   userOneAccessToken,
   adminRefreshToken,
   adminAccessToken,
+  saveAdminToken,
   saveTokens
 };

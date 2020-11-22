@@ -1,4 +1,4 @@
-# Mint Express 0.4.0
+# Mint Express 0.5.0
 
 <p align="center">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />

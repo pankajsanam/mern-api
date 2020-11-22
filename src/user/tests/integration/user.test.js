@@ -9,7 +9,8 @@ const {
 } = require('../fixtures/user.fixture');
 const {
   userOneAccessToken, userOneRefreshToken,
-  adminAccessToken, saveTokens
+  adminAccessToken, adminRefreshToken,
+  saveTokens, saveAdminToken
 } = require('../fixtures/token.fixture');
 
 setupTestDB();
@@ -29,6 +30,7 @@ describe('user routes', () => {
 
     it('should return 201 and successfully create new user if data is ok', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .post('/api/user')
@@ -50,6 +52,7 @@ describe('user routes', () => {
 
     it('should be able to create an admin', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       newUser.role = 'admin';
 
@@ -75,6 +78,7 @@ describe('user routes', () => {
 
     it('should return 403 error if logged in user is not admin', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       await request(app)
         .post('/api/user')
@@ -85,6 +89,7 @@ describe('user routes', () => {
 
     it('should return 400 error if email is invalid', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       newUser.email = 'invalidEmail';
 
@@ -97,6 +102,7 @@ describe('user routes', () => {
 
     it('should return 400 error if email is already used', async () => {
       await insertUsers([admin, userOne]);
+      await saveAdminToken(adminRefreshToken);
 
       newUser.email = userOne.email;
 
@@ -109,8 +115,9 @@ describe('user routes', () => {
 
     it('should return 400 error if password length is less than 8 characters', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
-      newUser.password = 'passwo1';
+      newUser.password = 'small';
 
       await request(app)
         .post('/api/user')
@@ -121,6 +128,7 @@ describe('user routes', () => {
 
     it('should return 400 error if password does not contain both letters and numbers', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       newUser.password = 'password';
 
@@ -141,6 +149,7 @@ describe('user routes', () => {
 
     it('should return 400 error if role is neither user nor admin', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       newUser.role = 'invalid';
 
@@ -155,6 +164,7 @@ describe('user routes', () => {
   describe('[GET] /api/user', () => {
     it('should return 200 and apply the default query options', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -189,6 +199,7 @@ describe('user routes', () => {
 
     it('should return 403 if a non-admin is trying to access all user', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveTokens(userOneRefreshToken);
 
       await request(app)
         .get('/api/user')
@@ -199,6 +210,7 @@ describe('user routes', () => {
 
     it('should correctly apply filter on name field', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -220,6 +232,7 @@ describe('user routes', () => {
 
     it('should correctly apply filter on role field', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -242,6 +255,7 @@ describe('user routes', () => {
 
     it('should correctly sort returned array if descending sort param is specified', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -265,6 +279,7 @@ describe('user routes', () => {
 
     it('should correctly sort returned array if ascending sort param is specified', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -288,6 +303,7 @@ describe('user routes', () => {
 
     it('should limit returned array if limit param is specified', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -310,6 +326,7 @@ describe('user routes', () => {
 
     it('should return the correct page if page and limit params are specified', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user')
@@ -333,6 +350,7 @@ describe('user routes', () => {
   describe('[GET] /api/user/logged-in', () => {
     it('should return logged-in status true', async () => {
       await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const res = await request(app)
         .get('/api/user/logged-in')
@@ -404,9 +422,10 @@ describe('user routes', () => {
 
     it('should return 500 if token does not exist but user does', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const res = await request(app)
-        .delete(`/api/user/logout/${userOneRefreshToken}`)
+        .delete(`/api/user/logout/${userOneAccessToken}`)
         .set('Authorization', `Bearer ${userOneAccessToken}`)
         .send()
         .expect(httpStatus.INTERNAL_SERVER_ERROR);
@@ -421,6 +440,7 @@ describe('user routes', () => {
   describe('[GET] - /api/user/:userId', () => {
     it('should return 200 and the user object if data is ok', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const res = await request(app)
         .get(`/api/user/${userOne._id}`)
@@ -445,6 +465,7 @@ describe('user routes', () => {
 
     it('should return 403 error if user is trying to get another user', async () => {
       await insertUsers([userOne, userTwo]);
+      await saveTokens(userOneRefreshToken);
 
       await request(app)
         .get(`/api/user/${userTwo._id}`)
@@ -455,6 +476,7 @@ describe('user routes', () => {
 
     it('should return 200 and the user object if admin is trying to get another user', async () => {
       await insertUsers([userOne, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .get(`/api/user/${userOne._id}`)
@@ -465,6 +487,7 @@ describe('user routes', () => {
 
     it('should return 400 error if userId is not a valid mongo id', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .get('/api/user/invalidId')
@@ -475,6 +498,7 @@ describe('user routes', () => {
 
     it('should return 404 error if user is not found', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .get(`/api/user/${userOne._id}`)
@@ -487,6 +511,7 @@ describe('user routes', () => {
   describe('[DELETE] - /api/user/:userId', () => {
     it('should return 204 if data is ok', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       await request(app)
         .delete(`/api/user/${userOne._id}`)
@@ -510,6 +535,7 @@ describe('user routes', () => {
 
     it('should return 403 error if user is trying to delete another user', async () => {
       await insertUsers([userOne, userTwo]);
+      await saveTokens(userOneRefreshToken);
 
       await request(app)
         .delete(`/api/user/${userTwo._id}`)
@@ -520,6 +546,7 @@ describe('user routes', () => {
 
     it('should return 204 if admin is trying to delete another user', async () => {
       await insertUsers([userOne, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .delete(`/api/user/${userOne._id}`)
@@ -530,6 +557,7 @@ describe('user routes', () => {
 
     it('should return 400 error if userId is not a valid id', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .delete('/api/user/invalidId')
@@ -540,6 +568,7 @@ describe('user routes', () => {
 
     it('should return 404 error if user already is not found', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       await request(app)
         .delete(`/api/user/${userOne._id}`)
@@ -552,6 +581,7 @@ describe('user routes', () => {
   describe('[PATCH] - /api/user/:userId', () => {
     it('should return 200 and successfully update user if data is ok', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = {
         name: faker.name.findName(),
@@ -591,6 +621,7 @@ describe('user routes', () => {
 
     it('should return 403 if user is updating another user', async () => {
       await insertUsers([userOne, userTwo]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { name: faker.name.findName() };
 
@@ -603,6 +634,7 @@ describe('user routes', () => {
 
     it('should return 200 and successfully update user if admin is updating another user', async () => {
       await insertUsers([userOne, admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const updateBody = { name: faker.name.findName() };
 
@@ -615,6 +647,7 @@ describe('user routes', () => {
 
     it('should return 404 if admin is updating another user that is not found', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const updateBody = { name: faker.name.findName() };
 
@@ -627,6 +660,7 @@ describe('user routes', () => {
 
     it('should return 400 error if userId is not a valid mongo id', async () => {
       await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
 
       const updateBody = { name: faker.name.findName() };
 
@@ -639,6 +673,7 @@ describe('user routes', () => {
 
     it('should return 400 if email is invalid', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { email: 'invalidEmail' };
 
@@ -651,6 +686,7 @@ describe('user routes', () => {
 
     it('should return 400 if email is already taken', async () => {
       await insertUsers([userOne, userTwo]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { email: userTwo.email };
 
@@ -663,6 +699,7 @@ describe('user routes', () => {
 
     it('should not return 400 if email is my email', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { email: userOne.email };
 
@@ -675,6 +712,7 @@ describe('user routes', () => {
 
     it('should return 400 if password length is less than 8 characters', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { password: 'passwo1' };
 
@@ -687,6 +725,7 @@ describe('user routes', () => {
 
     it('should return 400 if password does not contain both letters and numbers', async () => {
       await insertUsers([userOne]);
+      await saveTokens(userOneRefreshToken);
 
       const updateBody = { password: 'password' };
 
