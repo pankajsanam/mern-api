@@ -23,6 +23,7 @@ const register = controller(async (req, res) => {
  */
 const login = controller(async (req, res) => {
   const { email, password } = req.body;
+
   const user = await authService.authenticate(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
 
