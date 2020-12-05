@@ -80,7 +80,8 @@ const generateAuthTokens = async user => {
   return {
     access: {
       token: accessToken,
-      expires: accessTokenExpires.toDate()
+      expires: accessTokenExpires.toDate(),
+      expiresIn: config.jwt.accessExpirationMinutes
     },
     refresh: {
       token: refreshToken,

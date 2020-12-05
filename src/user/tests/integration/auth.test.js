@@ -58,8 +58,15 @@ describe('auth routes', () => {
         role: 'user'
       });
       expect(res.body.tokens).toStrictEqual({
-        access: { token: expect.anything(), expires: expect.anything() },
-        refresh: { token: expect.anything(), expires: expect.anything() }
+        access: {
+          token: expect.anything(),
+          expiresIn: expect.anything(),
+          expires: expect.anything()
+        },
+        refresh: {
+          token: expect.anything(),
+          expires: expect.anything()
+        }
       });
     });
 
@@ -131,8 +138,15 @@ describe('auth routes', () => {
       });
 
       expect(res.body.tokens).toStrictEqual({
-        access: { token: expect.anything(), expires: expect.anything() },
-        refresh: { token: expect.anything(), expires: expect.anything() }
+        access: {
+          token: expect.anything(),
+          expiresIn: expect.anything(),
+          expires: expect.anything()
+        },
+        refresh: {
+          token: expect.anything(),
+          expires: expect.anything()
+        }
       });
     });
 
@@ -179,8 +193,15 @@ describe('auth routes', () => {
       const res = await request(app).post('/api/auth/refresh-tokens').send({ refreshToken }).expect(httpStatus.OK);
 
       expect(res.body).toStrictEqual({
-        access: { token: expect.anything(), expires: expect.anything() },
-        refresh: { token: expect.anything(), expires: expect.anything() }
+        access: {
+          token: expect.anything(),
+          expiresIn: expect.anything(),
+          expires: expect.anything()
+        },
+        refresh: {
+          token: expect.anything(),
+          expires: expect.anything()
+        }
       });
 
       const dbRefreshTokenDoc = await Token.findOne({ token: res.body.refresh.token });
