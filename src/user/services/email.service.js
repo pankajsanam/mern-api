@@ -37,15 +37,14 @@ const sendEmail = async (to, subject, text) => {
 const sendResetPasswordEmail = async (to, token) => {
   const subject = 'Reset password';
 
-  // replace this url with the link to the reset password page of your front-end app
   const resetPasswordUrl = `${config.webUrl}/reset-password?token=${token}`;
-  const text = `Hey there!,
+  const text = `Hi,
 
   Click on the following link to reset your password:
 
   ${resetPasswordUrl}
 
-  Thanks`;
+  Mint Team`;
 
   await sendEmail(to, subject, text);
 };

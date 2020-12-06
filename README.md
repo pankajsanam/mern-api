@@ -1,4 +1,4 @@
-# Mint Express 0.5.0
+# Mint Express 0.6.0
 
 <p align="center">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
@@ -66,13 +66,13 @@ cp .env.example .env
 Run this in your local development environment:
 
 ```bash
-npm run dev
+npm run start
 ```
 
 Run this in production:
 
 ```bash
-npm run start
+npm run start:prod
 ```
 
 #### Testing

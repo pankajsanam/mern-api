@@ -1,6 +1,6 @@
 {
   "name": "mint-express",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Pankaj Sanam",
   "description": "A starter kit for creating modular RESTful APIs using Node, Express and Mongoose",
   "keywords": [
@@ -21,8 +21,10 @@
   "homepage": "https://github.com/pankajsanam/mint-express",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
-    "start": "pm2 start ecosystem.config.js --no-daemon",
+    "start": "cross-env NODE_ENV=development nodemon src/index.js",
+    "test": "npm run lint && jest -i --coverage",
+    "start:prod": "pm2 start ecosystem.config.js --no-daemon",
+    "test:watch": "jest --watchAll",
     "coverage": "jest -i --coverage",
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up",
@@ -30,9 +32,7 @@
     "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up",
     "lint": "eslint ./src/ --ignore-path .gitignore",
     "lint:fix": "npm run lint --fix",
-    "lint:watch": "npm run lint --watch",
-    "test": "npm run lint && jest -i --coverage",
-    "test:watch": "jest --watchAll"
+    "lint:watch": "npm run lint --watch"
   },
   "husky": {
     "hooks": {

@@ -317,11 +317,11 @@ describe('auth routes', () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    it('should return 404 if email does not belong to any user', async () => {
+    it('should return nothing if email does not exist for password reset', async () => {
       await request(app)
         .post('/api/auth/forgot-password')
         .send({ email: userOne.email })
-        .expect(httpStatus.NOT_FOUND);
+        .expect(httpStatus.NO_CONTENT);
     });
   });
 

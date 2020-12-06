@@ -3,7 +3,7 @@ const moment = require('moment');
 const config = require('../../config/config');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const { NotFoundError } = require('../../utils/errors');
+const logger = require('../../config/logger');
 
 /**
  * Generate token
@@ -65,8 +65,8 @@ const verifyToken = async (token, type) => {
 /**
  * Generate auth tokens
  *
- * @param {User} user
- * @returns {Promise<Object>}
+ * @param user
+ * @returns {Promise<{access: {expiresIn, expires: Date, token: string}, refresh: {expires: Date, token: string}}>}
  */
 const generateAuthTokens = async user => {
   const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, 'minutes');
@@ -93,14 +93,16 @@ const generateAuthTokens = async user => {
 /**
  * Generate reset password token
  *
- * @param {string} email
- * @returns {Promise<string>}
+ * @param email
+ * @returns {Promise<string|boolean>}
  */
 const generateResetPasswordToken = async email => {
   const user = await userService.getUserByEmail(email);
 
   if (!user) {
-    throw new NotFoundError('No user found with this email');
+    logger.info(`${email} email does not exist for password reset`);
+
+    return false;
   }
 
   const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes');

@@ -24,7 +24,9 @@ const configSet = joi.object()
   })
   .unknown();
 
-const { value: configValue, error } = configSet.prefs({ errors: { label: 'key' } }).validate(process.env);
+const { value: configValue, error } = configSet
+  .prefs({ errors: { label: 'key' } })
+  .validate(process.env);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
