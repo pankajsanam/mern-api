@@ -3,7 +3,6 @@ const moment = require('moment');
 const config = require('../../config/config');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const logger = require('../../config/logger');
 
 /**
  * Generate token
@@ -100,8 +99,6 @@ const generateResetPasswordToken = async email => {
   const user = await userService.getUserByEmail(email);
 
   if (!user) {
-    logger.info(`${email} email does not exist for password reset`);
-
     return false;
   }
 

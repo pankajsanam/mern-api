@@ -1,7 +1,6 @@
 const tokenService = require('./token.service');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const logger = require('../../config/logger');
 const { AuthError } = require('../../utils/errors');
 
 /**
@@ -63,7 +62,6 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     await Token.deleteMany({ user: user.id, type: 'resetPassword' });
     await userService.updateUserById(user.id, { password: newPassword });
   } catch (error) {
-    logger.error(error);
     throw new AuthError('Could not reset password');
   }
 };

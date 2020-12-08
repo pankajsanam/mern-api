@@ -7,10 +7,6 @@ const userController = require('../controllers/user.controller');
 const router = express.Router();
 
 router
-  .route('/logged-in')
-  .get(auth('login'), userController.loginStatus);
-
-router
   .route('/logout/:refreshToken')
   .delete(auth('login'), userController.logoutUser);
 

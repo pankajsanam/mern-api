@@ -347,35 +347,6 @@ describe('user routes', () => {
     });
   });
 
-  describe('[GET] /api/user/logged-in', () => {
-    it('should return logged-in status true', async () => {
-      await insertUsers([userOne, userTwo, admin]);
-      await saveAdminToken(adminRefreshToken);
-
-      const res = await request(app)
-        .get('/api/user/logged-in')
-        .set('Authorization', `Bearer ${adminAccessToken}`)
-        .send()
-        .expect(httpStatus.OK);
-
-      expect(res.body).toStrictEqual({ status: true });
-    });
-
-    it('should return 401 if access token is missing', async () => {
-      await insertUsers([userOne, userTwo, admin]);
-
-      const res = await request(app)
-        .get('/api/user/logged-in')
-        .send()
-        .expect(httpStatus.UNAUTHORIZED);
-
-      expect(res.body).toStrictEqual({
-        code: 401,
-        message: 'Authentication required!'
-      });
-    });
-  });
-
   describe('[DELETE] /api/user/logout/:refreshToken', () => {
     it('should delete the refresh token for user', async () => {
       await insertUsers([userOne]);
