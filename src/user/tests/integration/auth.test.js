@@ -32,14 +32,19 @@ describe('auth routes', () => {
         email: faker.internet.email().toLowerCase(),
         password: 'password1'
       };
+
+      jest.spyOn(emailService.transport, 'sendMail').mockResolvedValue();
     });
 
     it('should return 201 and successfully register user if request data is ok', async () => {
+      const sendWelcomeEmailSpy = jest.spyOn(emailService, 'sendWelcomeEmail');
+
       const res = await request(app)
         .post('/api/auth/register')
         .send(newUser)
         .expect(httpStatus.CREATED);
 
+      expect(sendWelcomeEmailSpy).toHaveBeenCalledWith(newUser.email);
       expect(res.body.user).not.toHaveProperty('password');
       expect(res.body.user).toStrictEqual({
         id: expect.anything(),
