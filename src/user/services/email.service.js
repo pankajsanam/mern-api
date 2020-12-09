@@ -49,8 +49,32 @@ const sendResetPasswordEmail = async (to, token) => {
   await sendEmail(to, subject, text);
 };
 
+/**
+ * Send an email on user registration
+ *
+ * @param to
+ * @returns {Promise<void>}
+ */
+const sendWelcomeEmail = async to => {
+  const subject = 'Thanks for signing up';
+  const url = `${config.webUrl}/login`;
+
+  const text = `Hey,
+
+  Thanks for signing up. Your account has been created.
+
+  Click on the below link to login:
+
+  ${url}
+
+  Mint Team`;
+
+  await sendEmail(to, subject, text);
+};
+
 module.exports = {
   sendResetPasswordEmail,
+  sendWelcomeEmail,
   transport,
   sendEmail
 };
