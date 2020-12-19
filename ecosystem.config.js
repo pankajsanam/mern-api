@@ -4,7 +4,7 @@ require('dotenv').config();
 module.exports = {
   apps: [
     {
-      name: 'Mint',
+      name: 'Mint Express',
       script: 'src/index.js',
       instances: 1,
       autorestart: true,

@@ -1,17 +1,22 @@
-FROM node:alpine
+FROM node:14.15.3-alpine3.12
 
-LABEL authors="Pankaj Sanam <pankaj.sanam@gmail.org>"
+RUN mkdir -p /home/mint-express
 
-RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
-
-WORKDIR /usr/src/mint-express
-
-COPY package*.json ./
+RUN chown node /home/mint-express
 
 USER node
 
-RUN npm i
+WORKDIR /home/mint-express
 
-COPY --chown=node:node . .
+COPY --chown=node package*.json ./
 
-EXPOSE 3000
+RUN npm install
+
+COPY --chown=node . /home/mint-express
+
+ENV PATH /home/mint-express/node_modules/.bin:$PATH
+ENV PORT=3000
+
+EXPOSE ${PORT}
+
+CMD ["npm", "start"]

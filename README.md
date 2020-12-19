@@ -1,6 +1,6 @@
 # Mint Express 0.6.0
 
-<p align="center">
+<p style="text-align: center;">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
 </p>
 
@@ -92,14 +92,15 @@ npm run coverage
 
 ```bash
 # run docker container in development mode
-npm run docker:dev
-
-# run docker container in production mode
-npm run docker:prod
+npm run docker
 
 # run all tests in a docker container
 npm run docker:test
 ```
+
+Use below string if you want to connect MongoDB Compass with your docker mongo instance:
+
+`mongodb://host.docker.internal:21017/mint`
 
 #### Linting
 

@@ -1,28 +1,27 @@
-version: '3'
+version: '3.7'
 
 services:
-  mint-express:
-    image: mint-express
-    restart: always
-    build: .
-    environment:
-      - MONGODB_URL=mongodb://mongodb:27017/mint-express
-    ports:
-      - '80:3000'
-    links:
-      - mongo
-    depends_on:
-      - mongodb
+  express:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - .:/usr/src/mint-express
+      - ./src/:/home/mint-express/src
+    ports:
+      - '3000:3000'
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/mint
+    depends_on:
+      - mongo
     networks:
       - node-network
-  mongodb:
-    image: mongo:4.2.1-bionic
+  mongo:
+    image: mongo:4.4.2-bionic
     ports:
       - '27017:27017'
     volumes:
       - dbdata:/data/db
+    restart: always
     networks:
       - node-network
 

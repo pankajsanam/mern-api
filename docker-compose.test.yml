@@ -1,6 +1,6 @@
 version: '3'
 
 services:
-  node-app:
-    container_name: mint-express-test
+  mint-express-test:
+    container_name: mint-express
     command: npm test

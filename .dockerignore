@@ -1,6 +1,8 @@
-node_modules
-npm-debug.log
-logs
-.idea
 .git
 .gitignore
+.history
+.idea
+logs
+coverage
+node_modules
+npm-debug.log
