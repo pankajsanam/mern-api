@@ -1,6 +1,6 @@
 {
   "name": "mint-express",
-  "version": "0.6.0",
+  "version": "0.1.0",
   "author": "Pankaj Sanam",
   "description": "A starter kit for creating modular RESTful APIs using Node, Express and Mongoose",
   "keywords": [
@@ -31,7 +31,8 @@
     "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up",
     "lint": "eslint ./src/ --ignore-path .gitignore",
     "lint:fix": "npm run lint --fix",
-    "lint:watch": "npm run lint --watch"
+    "lint:watch": "npm run lint --watch",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install"
   },
   "husky": {
     "hooks": {

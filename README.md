@@ -1,6 +1,6 @@
-# Mint Express 0.6.0
+# Mint Express 0.1.0
 
-<p style="text-align: center;">
+<p align="center">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
 </p>
 
