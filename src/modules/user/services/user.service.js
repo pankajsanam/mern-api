@@ -1,5 +1,10 @@
-const { BadRequestError, NotFoundError } = require('../../utils/errors');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const { BadRequestError, NotFoundError } = require('../../../utils/errors');
 const User = require('../models/user.model');
+
+const unlinkAsync = promisify(fs.unlink);
 
 /**
  * Create a user
@@ -13,6 +18,26 @@ const createUser = async userBody => {
   }
 
   return User.create(userBody);
+};
+
+const updateProfile = async (userId, userBody) => {
+  const user = await getUserById(userId);
+
+  if (!user) {
+    throw new NotFoundError('User does not exist');
+  }
+
+  if (user.avatar && !userBody.avatar) {
+    const avatarPath = path.join(__dirname, `../../../public/uploads/${user.avatar}`);
+
+    await unlinkAsync(avatarPath);
+  }
+
+  Object.assign(user, userBody);
+
+  await user.save();
+
+  return user;
 };
 
 /**
@@ -90,6 +115,7 @@ module.exports = {
   deleteUserById,
   updateUserById,
   getUserByEmail,
+  updateProfile,
   getUserById,
   createUser,
   queryUsers

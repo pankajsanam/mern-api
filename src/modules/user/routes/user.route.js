@@ -1,4 +1,6 @@
 const express = require('express');
+const path = require('path');
+const multer = require('multer');
 const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
 const userValidation = require('../validations/user.validation');
@@ -14,6 +16,27 @@ router
   .route('/')
   .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
   .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, path.join(__dirname, '../../../public/uploads/'));
+  },
+  filename: (req, file, callback) => {
+    callback(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 5242880
+  }
+});
+
+router
+  .route('/profile')
+  .get(auth('manageUsers'), userController.getProfile)
+  .put(auth('manageUsers'), upload.single('avatar'), userController.updateProfile);
 
 router
   .route('/:userId')

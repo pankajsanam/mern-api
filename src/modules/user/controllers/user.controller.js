@@ -1,3 +1,4 @@
+const { get, isEmpty } = require('lodash');
 const httpStatus = require('http-status');
 const { NotFoundError } = require('../../utils/errors');
 const { controller, pick } = require('../../utils');
@@ -23,6 +24,24 @@ const createUser = controller(async (req, res) => {
   const user = await userService.createUser(req.body);
 
   res.status(httpStatus.CREATED).send(user);
+});
+
+/**
+ * Update current user's profile
+ *
+ * @type {function(...[*]=)}
+ */
+const updateProfile = controller(async (req, res) => {
+  if (get(req, 'file.filename', false)) {
+    req.body.avatar = get(req, 'file.filename', false);
+  }
+
+  // Explicitly setting it to null if it's empty, since formData only sends string values
+  req.body.avatar = !isEmpty(req.body.avatar) ? req.body.avatar : null;
+
+  await userService.updateProfile(req.user._id, req.body);
+
+  res.send(req.file);
 });
 
 /**
@@ -54,6 +73,16 @@ const getUser = controller(async (req, res) => {
   res.send(user);
 });
 
+const getProfile = controller(async (req, res) => {
+  const user = await userService.getUserById(req.user._id);
+
+  if (!user) {
+    throw new NotFoundError('User does not exist');
+  }
+
+  res.send(user);
+});
+
 /**
  * Update a users details
  *
@@ -77,6 +106,8 @@ const deleteUser = controller(async (req, res) => {
 });
 
 module.exports = {
+  updateProfile,
+  getProfile,
   updateUser,
   createUser,
   deleteUser,
