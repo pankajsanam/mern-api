@@ -8,7 +8,7 @@ const { BadRequestError } = require('../../../utils/errors');
  * @param schema
  * @returns {function(...[*]=)}
  */
-const validate = schema => (req, res, next) => {
+const validateMiddleware = schema => (req, res, next) => {
   const validSchema = pick(schema, ['params', 'query', 'body']);
   const object = pick(req, Object.keys(validSchema));
   const { value, error } = joi.compile(validSchema)
@@ -25,4 +25,4 @@ const validate = schema => (req, res, next) => {
   return next();
 };
 
-module.exports = validate;
+module.exports = validateMiddleware;

@@ -7,9 +7,9 @@ const cors = require('cors');
 const passport = require('passport');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
-const { jwtStrategy } = require('./modules/user/middlewares/passport');
-const { authLimiter } = require('./modules/user/middlewares/rateLimiter');
-const { errorConverter, errorHandler } = require('./modules/user/middlewares/error');
+const { jwtStrategy } = require('./modules/user/middlewares/jwtMiddleware');
+const { authLimiter } = require('./modules/user/middlewares/rateLimitMiddleware');
+const { errorConverter, errorHandler } = require('./modules/user/middlewares/errorMiddleware');
 const { NotFoundError } = require('./utils/errors');
 
 const app = express();

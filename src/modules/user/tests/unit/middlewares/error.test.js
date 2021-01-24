@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const httpMocks = require('node-mocks-http');
-const { errorConverter, errorHandler } = require('../../../middlewares/error');
+const { errorConverter, errorHandler } = require('../../../middlewares/errorMiddleware');
 const { BaseError } = require('../../../../../utils/errors');
 const config = require('../../../../../config/config');
 const logger = require('../../../../../config/logger');

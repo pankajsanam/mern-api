@@ -38,7 +38,7 @@ const authorization = (req, resolve, reject, requiredPermissions) => async (err,
  * @param requiredPermissions
  * @returns {function(*=, *=, *=): Promise<unknown>}
  */
-const auth = (...requiredPermissions) => async (req, res, next) => new Promise((resolve, reject) => {
+const authMiddleware = (...requiredPermissions) => async (req, res, next) => new Promise((resolve, reject) => {
   passport.authenticate(
     'jwt',
     { session: false },
@@ -48,4 +48,4 @@ const auth = (...requiredPermissions) => async (req, res, next) => new Promise((
   .then(() => next())
   .catch(err => next(err));
 
-module.exports = auth;
+module.exports = authMiddleware;
