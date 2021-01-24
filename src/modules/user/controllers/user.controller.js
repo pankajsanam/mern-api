@@ -1,7 +1,7 @@
 const { get, isEmpty } = require('lodash');
 const httpStatus = require('http-status');
-const { NotFoundError } = require('../../utils/errors');
-const { controller, pick } = require('../../utils');
+const { NotFoundError } = require('../../../utils/errors');
+const { controller, pick } = require('../../../utils');
 const { userService, tokenService } = require('../services');
 
 /**

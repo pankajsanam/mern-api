@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
-const config = require('../../config/config');
-const logger = require('../../config/logger');
-const BaseError = require('../../utils/errors/BaseError');
+const config = require('../../../config/config');
+const logger = require('../../../config/logger');
+const BaseError = require('../../../utils/errors/BaseError');
 
 /**
  * Convert errors into the BaseError
@@ -30,9 +30,8 @@ const errorConverter = (err, req, res, next) => {
  * @param err
  * @param req
  * @param res
- * @param next
  */
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   let { statusCode, message } = err;
 
   if (config.env === 'production' && !err.isOperational) {

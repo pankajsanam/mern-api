@@ -1,5 +1,5 @@
 const passport = require('passport');
-const { AuthError, ForbiddenError } = require('../../utils/errors');
+const { AuthError, ForbiddenError } = require('../../../utils/errors');
 const { rolePermissions } = require('../config/roles');
 
 // Authorization for controllers

@@ -1,14 +1,14 @@
 const tokenService = require('./token.service');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
-const { AuthError } = require('../../utils/errors');
+const { AuthError } = require('../../../utils/errors');
 
 /**
  * Login with email and password
  *
  * @param email
  * @param password
- * @returns {Promise<User>}
+ * @returns {Promise<>}
  */
 const authenticate = async (email, password) => {
   const user = await userService.getUserByEmail(email);

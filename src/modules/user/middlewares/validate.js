@@ -1,6 +1,6 @@
 const joi = require('@hapi/joi');
-const { pick } = require('../../utils');
-const { BadRequestError } = require('../../utils/errors');
+const { pick } = require('../../../utils');
+const { BadRequestError } = require('../../../utils/errors');
 
 /**
  * Validate the body of a request
