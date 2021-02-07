@@ -166,7 +166,10 @@ describe('auth routes', () => {
         .send(loginCredentials)
         .expect(httpStatus.UNAUTHORIZED);
 
-      expect(res.body).toStrictEqual({ code: httpStatus.UNAUTHORIZED, message: 'Incorrect email or password' });
+      expect(res.body).toStrictEqual({
+        status: httpStatus.UNAUTHORIZED,
+        message: 'Incorrect email or password'
+      });
     });
 
     it('should return 401 error if password is wrong', async () => {
@@ -182,7 +185,10 @@ describe('auth routes', () => {
         .send(loginCredentials)
         .expect(httpStatus.UNAUTHORIZED);
 
-      expect(res.body).toStrictEqual({ code: httpStatus.UNAUTHORIZED, message: 'Incorrect email or password' });
+      expect(res.body).toStrictEqual({
+        status: httpStatus.UNAUTHORIZED,
+        message: 'Incorrect email or password'
+      });
     });
   });
 

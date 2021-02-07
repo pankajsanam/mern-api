@@ -3,6 +3,7 @@ const moment = require('moment');
 const config = require('../../../config/config');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
+const { NotFoundError } = require('../../../utils/errors');
 
 /**
  * Generate token
@@ -55,7 +56,7 @@ const verifyToken = async (token, type) => {
   });
 
   if (!tokenDoc) {
-    throw new Error('Token not found');
+    throw new NotFoundError('Token not found');
   }
 
   return tokenDoc;

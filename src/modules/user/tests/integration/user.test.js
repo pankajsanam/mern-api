@@ -371,7 +371,7 @@ describe('user routes', () => {
         .expect(httpStatus.UNAUTHORIZED);
 
       expect(res.body).toStrictEqual({
-        code: 401,
+        status: 401,
         message: 'Authentication required!'
       });
     });
@@ -386,7 +386,7 @@ describe('user routes', () => {
         .expect(httpStatus.UNAUTHORIZED);
 
       expect(res.body).toStrictEqual({
-        code: 401,
+        status: 401,
         message: 'Authentication required!'
       });
     });
@@ -399,10 +399,10 @@ describe('user routes', () => {
         .delete(`/api/user/logout/${userOneAccessToken}`)
         .set('Authorization', `Bearer ${userOneAccessToken}`)
         .send()
-        .expect(httpStatus.INTERNAL_SERVER_ERROR);
+        .expect(httpStatus.NOT_FOUND);
 
       expect(res.body).toStrictEqual({
-        code: 500,
+        status: 404,
         message: 'Token not found'
       });
     });

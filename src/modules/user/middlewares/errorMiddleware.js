@@ -1,60 +1,20 @@
-const httpStatus = require('http-status');
-const config = require('../../../config/config');
-const logger = require('../../../config/logger');
-const BaseError = require('../../../utils/errors/BaseError');
+const { NotFoundError } = require('../../../utils/errors');
 
-/**
- * Convert errors into the BaseError
- *
- * @param err
- * @param req
- * @param res
- * @param next
- */
-const errorConverter = (err, req, res, next) => {
-  let error = err;
-
-  if (!(error instanceof BaseError)) {
-    const statusCode = error.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
-    const message = error.message || httpStatus[statusCode];
-
-    error = new BaseError(statusCode, message, false, err.stack);
-  }
-
-  next(error);
+const notFoundErrorHandler = (req, res, next) => {
+  next(new NotFoundError('Resource not found'));
 };
 
-/**
- * Common error handler
- *
- * @param err
- * @param req
- * @param res
- */
-const errorHandler = (err, req, res) => {
-  let { statusCode, message } = err;
-
-  if (config.env === 'production' && !err.isOperational) {
-    statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-    message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
-  }
-
-  res.locals.errorMessage = err.message;
-
-  const response = {
-    code: statusCode,
-    message,
-    ...(config.env === 'development' && { stack: err.stack })
-  };
-
-  if (config.env === 'development') {
-    logger.error(err);
-  }
-
-  res.status(statusCode).send(response);
+const errorHandler = (error, req, res, next) => {
+  res
+    .status(error.statusCode)
+    .json({
+      // stack: error.stack,
+      status: error.statusCode,
+      message: error.message
+    });
 };
 
 module.exports = {
-  errorConverter,
+  notFoundErrorHandler,
   errorHandler
 };

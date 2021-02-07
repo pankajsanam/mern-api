@@ -9,8 +9,7 @@ const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./modules/user/middlewares/jwtMiddleware');
 const { authLimiter } = require('./modules/user/middlewares/rateLimitMiddleware');
-const { errorConverter, errorHandler } = require('./modules/user/middlewares/errorMiddleware');
-const { NotFoundError } = require('./utils/errors');
+const { notFoundErrorHandler, errorHandler } = require('./modules/user/middlewares/errorMiddleware');
 
 const app = express();
 
@@ -55,14 +54,9 @@ app.use('/api', require('./router'));
 app.use(express.static('public'));
 
 // send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-  next(new NotFoundError());
-});
+app.use(notFoundErrorHandler);
 
-// convert error to custom BaseError
-app.use(errorConverter);
-
-// handle errors
+// Handle error response
 app.use(errorHandler);
 
 module.exports = app;
