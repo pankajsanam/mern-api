@@ -4,9 +4,8 @@
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
 </p>
 
-[![Build Status](https://travis-ci.com/pankajsanam/mint-express.svg?branch=master)](https://travis-ci.com/pankajsanam/mint-express)
-[![Coverage Status](https://coveralls.io/repos/github/pankajsanam/mint-express/badge.svg?branch=master)](https://coveralls.io/github/pankajsanam/mint-express?branch=master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1f30292f51df0ab5ad22/maintainability)](https://codeclimate.com/github/pankajsanam/mint-express/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/antick/mint-express/badge.svg?branch=master)](https://coveralls.io/github/antick/mint-express?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1f30292f51df0ab5ad22/maintainability)](https://codeclimate.com/github/antick/mint-express/maintainability)
 [![MIT License](https://img.shields.io/npm/l/stack-overflow-copy-paste.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Support via Paypal](https://img.shields.io/badge/support-paypal-yellowgreen.svg?style=flat-square)](https://paypal.me/pankajsanam)
 
@@ -44,7 +43,7 @@ Quickly start your project with all the essential features required to build a R
 Clone the repo:
 
 ```bash
-git clone https://github.com/pankajsanam/mint-express.git
+git clone https://github.com/antick/mint-express.git
 cd mint-express
 rm -rf .git
 ```
