@@ -33,6 +33,10 @@ const updateProfile = async (userId, userBody) => {
     await unlinkAsync(avatarPath);
   }
 
+  if (!userBody.password) {
+    delete userBody.password;
+  }
+
   Object.assign(user, userBody);
 
   await user.save();
