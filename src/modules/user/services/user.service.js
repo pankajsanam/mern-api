@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const { BadRequestError, NotFoundError } = require('../../../utils/errors');
 const User = require('../models/user.model');
 
+// eslint-disable-next-line security/detect-non-literal-fs-filename
 const unlinkAsync = promisify(fs.unlink);
 
 /**
