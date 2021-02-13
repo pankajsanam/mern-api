@@ -1,4 +1,6 @@
-# Mint Express 0.1.0
+# Mint Express 0.1.0 (MERN Boilerplate/Starter Kit) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fantick%2Fmint-react&text=React-boilerplate&hashtags=react%2Ctailwindcss%2Creactjs)
+
+![version](https://img.shields.io/badge/version-0.1.0-teal.svg) ![license](https://img.shields.io/badge/license-MIT-teal.svg) [![GitHub issues open](https://img.shields.io/github/issues/antick/mint-react.svg?maxAge=2592000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/antick/mint-react.svg?maxAge=2592000)]()  [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/6jgSTR2pAF)
 
 <p align="center">
     <img alt="Mint logo" src="https://i.imgur.com/OuDAqB1.png" width="200px" />
@@ -6,7 +8,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/antick/mint-express/badge.svg?branch=master)](https://coveralls.io/github/antick/mint-express?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1f30292f51df0ab5ad22/maintainability)](https://codeclimate.com/github/antick/mint-express/maintainability)
-[![MIT License](https://img.shields.io/npm/l/stack-overflow-copy-paste.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![Support via Paypal](https://img.shields.io/badge/support-paypal-yellowgreen.svg?style=flat-square)](https://paypal.me/pankajsanam)
 
 A starter kit for building modular RESTful APIs using Node, Express, and Mongoose.
@@ -221,15 +222,26 @@ To maintain a consistent coding style across different IDEs, the project contain
 
 Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md).
 
+## Documentation
+
+The documentation for Mint React is available [here](https://antick.github.io/mint).
+
 ## Author
 
 Pankaj Sanam - [@pankajsanam](https://twitter.com/pankajsanam)
 
-## Support Me
+## Support
 
 <a href="https://www.buymeacoffee.com/pankajsanam" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 25px !important;width: 50px !important;"></a>
-
 
 ## License
 
 [MIT License](LICENSE)
+
+## Thanks
+
+<p style="text-align: center;">
+  <a href="https://www.jetbrains.com/?from=mintreact">
+    <img src="public/images/jetbrains.png" alt="Jetbrains" />
+  </a>
+</p>

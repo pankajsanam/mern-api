@@ -34,28 +34,6 @@
     "lint:watch": "npm run lint --watch",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint && npm test"
-    }
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "*.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    }
-  },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",

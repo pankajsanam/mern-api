@@ -1,7 +1,8 @@
 {
   "hooks": {
-    "post-checkout": "yarn",
-    "pre-commit": "lint-staged",
-    "post-commit": "git status"
+    "pre-commit": "npm run lint",
+    "post-commit": "git status",
+    "post-checkout": "npm i",
+    "pre-push": "npm run lint && npm run test"
   }
 }
