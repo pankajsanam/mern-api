@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('../config/config');
+const config = require('../config');
 
 const setupTestDB = () => {
   // eslint-disable-next-line jest/no-hooks,jest/require-top-level-describe

@@ -1,5 +1,5 @@
 const moment = require('moment');
-const config = require('../../../../config/config');
+const config = require('../../../../config');
 const tokenService = require('../../services/token.service');
 const { userOne, admin } = require('./user.fixture');
 

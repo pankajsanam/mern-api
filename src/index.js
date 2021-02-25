@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./app');
-const config = require('./config/config');
+const config = require('./config');
 const logger = require('./config/logger');
 
 let server;

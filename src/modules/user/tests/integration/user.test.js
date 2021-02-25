@@ -347,6 +347,35 @@ describe('user routes', () => {
     });
   });
 
+  describe('[GET] /api/user/profile', () => {
+    it('should return 200 and apply the default query options', async () => {
+      await insertUsers([userOne, userTwo, admin]);
+      await saveAdminToken(adminRefreshToken);
+
+      const res = await request(app)
+        .get('/api/user/profile')
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toStrictEqual({
+        email: admin.email,
+        id: admin._id.toString(),
+        name: admin.name,
+        role: admin.role
+      });
+    });
+
+    it('should return 401 if access token is missing', async () => {
+      await insertUsers([userOne, userTwo, admin]);
+
+      await request(app)
+        .get('/api/user/profile')
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
+  });
+
   describe('[DELETE] /api/user/logout/:refreshToken', () => {
     it('should delete the refresh token for user', async () => {
       await insertUsers([userOne]);

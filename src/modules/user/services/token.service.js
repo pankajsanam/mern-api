@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
-const config = require('../../../config/config');
+const config = require('../../../config');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
 const { NotFoundError } = require('../../../utils/errors');

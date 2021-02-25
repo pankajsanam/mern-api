@@ -76,10 +76,6 @@ const getUser = controller(async (req, res) => {
 const getProfile = controller(async (req, res) => {
   const user = await userService.getUserById(req.user._id);
 
-  if (!user) {
-    throw new NotFoundError('User does not exist');
-  }
-
   res.send(user);
 });
 
