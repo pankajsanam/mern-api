@@ -376,6 +376,34 @@ describe('user routes', () => {
     });
   });
 
+  describe('[PUT] - /api/user/profile', () => {
+    it('should return 200 and successfully update user profile', async () => {
+      await insertUsers([admin]);
+      await saveAdminToken(adminRefreshToken);
+
+      const updateBody = {
+        name: faker.name.findName(),
+        email: faker.internet.email().toLowerCase(),
+        password: 'newPassword1',
+        avatar: null
+      };
+
+      const res = await request(app)
+        .put('/api/user/profile')
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send(updateBody)
+        .expect(httpStatus.OK);
+
+      expect(res.body).toStrictEqual({
+        id: admin._id.toHexString(),
+        name: updateBody.name,
+        email: updateBody.email,
+        avatar: updateBody.avatar,
+        role: 'admin'
+      });
+    });
+  });
+
   describe('[DELETE] /api/user/logout/:refreshToken', () => {
     it('should delete the refresh token for user', async () => {
       await insertUsers([userOne]);

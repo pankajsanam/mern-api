@@ -39,9 +39,9 @@ const updateProfile = controller(async (req, res) => {
   // Explicitly setting it to null if it's empty, since formData only sends string values
   req.body.avatar = !isEmpty(req.body.avatar) ? req.body.avatar : null;
 
-  await userService.updateProfile(req.user._id, req.body);
+  const user = await userService.updateProfile(req.user._id, req.body);
 
-  res.send(req.file);
+  res.send(user);
 });
 
 /**
